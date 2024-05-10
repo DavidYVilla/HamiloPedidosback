@@ -230,10 +230,20 @@
                                 </a>
                             </li> --}}
                             <li class="nav-item">
-                                <a href="{{ url('/home') }}#" class="nav-link active">
+                                <a href="{{ url('/home') }}"
+                                    class="nav-link {{ request()->is('home*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-home"></i>
                                     <p>
                                         Inicio
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/negocios') }}"
+                                    class="nav-link {{ request()->is('negocios*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-building"></i>
+                                    <p>
+                                        Negocios
                                     </p>
                                 </a>
                             </li>

@@ -22,33 +22,37 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header">Registro de Negocio</div>
+                        <div class="card-header">Actualizacion de Negocio</div>
 
                         <div class="card-body">
-                            <form action="{{ url('/negocios/registrar') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ url('/negocios/actualizar/' . $negocio->id) }}" method="POST"
+                                enctype="multipart/form-data">
+                                @method('PUT')
                                 @csrf
                                 <div class="form-group">
                                     <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" name="nombre">
+                                    <input type="text" class="form-control" name="nombre"
+                                        value="{{ $negocio->nombre }}">
                                     @error('nombre')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
+                                <img src="{{ $negocio->getimagenUrl() }}" height="82px">
                                 <div class="form-group">
                                     <label for="nombre">Imagen</label>
-                                    <input type="file" class="form-control" accept="imagen/*" name="imagen">
+                                    <input type="file" class="form-control" accept="image/*" name="imagen">
                                     @error('imagen')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="descripcion">Descripcion</label>
-                                    <textarea cols="30" rows="3" class="form-control" name="descripcion"></textarea>
+                                    <textarea cols="30" rows="3" class="form-control" name="descripcion">{{ $negocio->descripcion }}"</textarea>
                                     @error('descripcion')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <button type="submit" class="btn btn-primary">Registrar</button>
+                                <button type="submit" class="btn btn-primary">Actualizar</button>
                             </form>
                         </div>
                     </div>

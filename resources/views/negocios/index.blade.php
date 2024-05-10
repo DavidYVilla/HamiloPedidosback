@@ -25,7 +25,7 @@
                         @include('includes.alertas')
                         <div class="row">
                             <div class="col-md-6"></div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 text-end mb-2">
                                 <a href="{{ url('/negocios/registrar') }}" class="btn btn-primary">Nuevo</a>
                             </div>
                         </div>
@@ -61,8 +61,10 @@
                                                         @endif
                                                     </td>
                                                     <td>
+                                                        <a href="{{ url('/negocios/ver/' . $item->id) }}"
+                                                            class="btn btn-info"><i class="fa fa-eye"></i></a>
                                                         <a href="{{ url('/negocios/actualizar/' . $item->id) }}"
-                                                            class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                            class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                         @if ($item->estado == true)
                                                             <a href="{{ url('/negocios/estado/' . $item->id) }}"
                                                                 class="btn btn-danger"><i class="fa fa-ban"></i></a>
@@ -75,7 +77,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    {{ $negocios->links('pagination:bootstrap-4') }}
+                                    {{ $negocios->links('pagination::bootstrap-4') }}
                                 </div>
                             </div>
                         </div>

@@ -25,17 +25,17 @@ class NegociosController extends Controller
         ]);
         if($request->file('imagen')){
             $imagen = $request->file('imagen');
-            $nombreImagen = uniqid('post_') . '.png';
-            if(!is_dir(public_path('/imagenes/posts/'))){
-                File::makeDirectory(public_path().'/imagenes/posts/',0777,true);
+            $nombreImagen = uniqid('negocio_') . '.png';
+            if(!is_dir(public_path('/imagenes/negocios/'))){
+                File::makeDirectory(public_path().'/imagenes/negocios/',0777,true);
             }
-            $subido = $imagen->move(public_path().'/imagenes/posts/', $nombreImagen);
+            $subido = $imagen->move(public_path().'/imagenes/negocios/', $nombreImagen);
         } else {
             $nombreImagen = 'default.png';
         }
         $negocio = new Negocios();
         $negocio->nombre=$request->nombre;
-        $negocio->imagen=$nombreImagen->imagen;
+        $negocio->imagen=$nombreImagen;
         $negocio->descripcion= $request->descripcion;
         $negocio->estado=true;
         $negocio->usuario_id=auth()->user()->id;
@@ -49,34 +49,34 @@ class NegociosController extends Controller
 }
     public function edit($id){
         $negocio=Negocios::find($id);
-        return view('negocios.edit',compact('negocios'));
+        return view('negocios.edit',compact('negocio'));
     }
-    public function update(){
+    public function update(Request $request, $id){
         $this->validate($request,[
-            'nombre'=>'required|unique:negocios',
+            'nombre'=>'required|exists:negocios,nombre',
             'imagen'=>'nullable|image|mimes:png,jpg,jpg,jpeg',
             'descripcion'=>'nullable|string|min:10|max:500',
         ]);
-        $negocio=Negocio::find($id);
+        $negocio=Negocios::find($id);
         if($request->file('imagen')){
             // eliminar la imagen anterior
-            if($post->imagen != 'default.png'){
-                if(file_exists(public_path().'/imagenes/posts/'.$post->imagen)){
-                    unlink(public_path().'/imagenes/posts/'.$post->imagen);
+            if($negocio->imagen != 'default.png'){
+                if(file_exists(public_path().'/imagenes/negocios/'.$negocio->imagen)){
+                    unlink(public_path().'/imagenes/negocios/'.$negocio->imagen);
                 }
             }
 
             $imagen = $request->file('imagen');
-            $nombreImagen = uniqid('post_') . '.png';
-            if(!is_dir(public_path('/imagenes/posts/'))){
-                File::makeDirectory(public_path().'/imagenes/posts/',0777,true);
+            $nombreImagen = uniqid('negocio_') . '.png';
+            if(!is_dir(public_path('/imagenes/negocios/'))){
+                File::makeDirectory(public_path().'/imagenes/negocios/',0777,true);
             }
-            $subido = $imagen->move(public_path().'/imagenes/posts/', $nombreImagen);
+            $subido = $imagen->move(public_path().'/imagenes/negocios/', $nombreImagen);
 
             $negocio->imagen = $nombreImagen;
         }
         $negocio->nombre=$request->nombre;
-        $negocio->descripcion=$post->descripcion;
+        $negocio->descripcion=$request->descripcion;
         if ($negocio->save()) {
             return redirect('/negocios')->with('success', 'Registro actualizado correctamente!');
         } else {
@@ -93,8 +93,8 @@ class NegociosController extends Controller
             }
         }
 
-    public function show(){
-        $negocio=Negocio::find($id);
+    public function show($id){
+        $negocio=Negocios::find($id);
         return view('negocios.show',compact('negocio'));
     }
 }

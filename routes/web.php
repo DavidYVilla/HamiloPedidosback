@@ -27,9 +27,9 @@ Route::get('/reenviar', [App\Http\Controllers\HomeController::class, 'reenviar']
 
 //rutas para negocios
 Route::get('/negocios', [App\Http\Controllers\NegociosController::class, 'index']);
-Route::get('/negocios/registar', [App\Http\Controllers\NegociosController::class, 'create']);
-Route::post('/negocios/registar', [App\Http\Controllers\NegociosController::class, 'store']);
+Route::get('/negocios/registrar', [App\Http\Controllers\NegociosController::class, 'create']);
+Route::post('/negocios/registrar', [App\Http\Controllers\NegociosController::class, 'store']);
 Route::get('/negocios/actualizar/{id}', [App\Http\Controllers\NegociosController::class, 'edit']);
 Route::put('/negocios/actualizar/{id}', [App\Http\Controllers\NegociosController::class, 'update']);
 Route::get('/negocios/estado/{id}', [App\Http\Controllers\NegociosController::class, 'estado']);
-Route::put('/negocios/ver/{id}', [App\Http\Controllers\NegociosController::class, 'show']);
+Route::get('/negocios/ver/{id}', [App\Http\Controllers\NegociosController::class, 'show']);

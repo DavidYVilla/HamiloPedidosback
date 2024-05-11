@@ -33,3 +33,13 @@ Route::get('/negocios/actualizar/{id}', [App\Http\Controllers\NegociosController
 Route::put('/negocios/actualizar/{id}', [App\Http\Controllers\NegociosController::class, 'update']);
 Route::get('/negocios/estado/{id}', [App\Http\Controllers\NegociosController::class, 'estado']);
 Route::get('/negocios/ver/{id}', [App\Http\Controllers\NegociosController::class, 'show']);
+
+
+//rutas para productos
+Route::get('/productos', [App\Http\Controllers\ProductosController::class, 'index']);
+Route::get('/productos/registrar', [App\Http\Controllers\ProductosController::class, 'create']);
+Route::post('/productos/registrar', [App\Http\Controllers\ProductosController::class, 'store']);
+Route::get('/productos/actualizar/{id}', [App\Http\Controllers\ProductosController::class, 'edit']);
+Route::put('/productos/actualizar/{id}', [App\Http\Controllers\ProductosController::class, 'update']);
+Route::get('/productos/estado/{id}', [App\Http\Controllers\ProductosController::class, 'estado']);
+// Route::get('/productos/ver/{id}', [App\Http\Controllers\ProductosController::class, 'show']);

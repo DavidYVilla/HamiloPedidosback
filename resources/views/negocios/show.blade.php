@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="text-center mt-3">
-                                <a href="{{ url('/negocios') }}" class="btn-btn-primary">Volver al Listado</a>
+                                <a href="{{ url('/negocios') }}" class="btn btn-primary">Volver al Listado</a>
                             </div>
                         </div>
                     </div>
@@ -57,6 +57,53 @@
                     <div class="card">
                         <div class="card-header">Listado de Productos</div>
                         <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>IMAGENES</th>
+                                            <th>NOMBRE</th>
+                                            <th>DESCRIPCION</th>
+                                            <th>COSTO</th>
+                                            <th>ESTADO</th>
+                                            <th>ACCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($productos as $item)
+                                            <tr>
+                                                <td>{{ $item->id }}</td>
+                                                <td>
+                                                    <img src="{{ $item->getimagenUrl() }}" height="40px" alt="imagen">
+                                                </td>
+                                                <td>{{ $item->nombre }}</td>
+                                                <td>{{ $item->descripcion }}</td>
+                                                <td>{{ $item->costo }}</td>
+                                                <td>
+                                                    @if ($item->estado == true)
+                                                        <span class="badge badge-success">Activo</span>
+                                                    @else
+                                                        <span class="badge badge-danger">Inactivo</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="{{ url('/productos/actualizar/' . $item->id) }}"
+                                                        class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                    @if ($item->estado == true)
+                                                        <a href="{{ url('/productos/estado/' . $item->id) }}"
+                                                            class="btn btn-danger"><i class="fa fa-ban"></i></a>
+                                                    @else
+                                                        <a href="{{ url('/productos/estado/' . $item->id) }}"
+                                                            class="btn btn-success"><i class="fa fa-check"></i></a>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                {{ $productos->links('pagination::bootstrap-5') }}
+                            </div>
                         </div>
 
                     </div>
